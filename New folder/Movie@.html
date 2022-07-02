@@ -1,0 +1,109 @@
+<html id="back">
+    <head>
+        <style>
+            .image {
+    position: relative;
+    width: 300px;
+}
+
+.image__img {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+    width: 250px;
+}
+
+.image__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.image__overlay--blur {
+    backdrop-filter: blur(5px);
+}
+
+.image__overlay--primary {
+    background: #b40202;
+}
+
+.image__overlay > * {
+    transform: translateY(20px);
+    transition: transform 0.25s;
+}
+
+.image__overlay:hover {
+    opacity: 1;
+}
+
+.image__overlay:hover > * {
+    transform: translateY(0);
+}
+
+.image__title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    font-family: Sans-serif;
+}
+
+.image__description {
+    font-size: 1.25em;
+    margin-top: 0.25em;
+}
+#back{
+     background-image: url(https://vistapointe.net/images/light-blue-dark-blue-1.jpg);
+}
+h1{
+    text-align: center;
+    font-family: Sans-serif;
+}
+        </style>
+    </head>
+    <body>
+        <h1 style="background-color:white ;">BEST MOVIES IN 2022</h1><br>
+        <div>
+        <div class="image">
+            <img class="image__img" src="https://assets.voxcinemas.com/posters/P_HO00008998.jpg" alt="Bricks">
+            <div class="image__overlay image__overlay--primary">
+                <div style="font-family:Sans-serif;" class="image__title">Doctor strange in the multiverse of madness</div>
+                <p class="image__description">
+                  
+                </p>
+            </div><br>
+            
+            
+        </div> 
+        </div>  
+
+        <head>
+            <style>
+                       #mar{
+                           margin: 000px 500px 00px;
+                           
+
+                       }
+            </style>
+        </head>
+
+        <div id="mar">
+        <div class="image">
+            <img class="image__img" src="https://assets.voxcinemas.com/posters/P_HO00008998.jpg" alt="Bricks">
+            <div class="image__overlay image__overlay--primary">
+                <div style="font-family:Sans-serif;" class="image__title">Doctor strange in the multiverse of madness</div>
+                <p class="image__description">
+                    </p>
+                    </div>
+    </body>
+</html>

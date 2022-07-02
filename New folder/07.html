@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function validateForm( )
+        {
+            let x = document.forms["myForm"]["fname"].value;
+            if(x == ""){
+                alert("name must be filled");
+                return false;
+            }
+            if(x == "password"){
+                alert("ok")
+            }
+        }
+    </script>
+       
+</head>
+<body>
+    <form name="myForm" action="https://studentportal.codeyoung.com/#/dashboard" onsubmit="validateForm( )" method="post">
+    user-Name: <input type="text" name="fname">
+    <input type="submit" value="Submit">
+</form>
+
+    
+    
+</body>
+</html>

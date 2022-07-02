@@ -1,0 +1,416 @@
+<html>
+    <head>
+        <style>
+            h1{
+                border: 5px solid white;
+                border-radius: 30px;
+                text-align:center;
+                width: 300px;
+                margin-left: 500px;
+                padding: 3px;
+                font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                color: aliceblue;
+            }
+            body{
+                background-image: url(https://wallpaperaccess.com/full/2000539.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            #img1{
+                       width: 70px;
+                       margin-bottom: 20px;
+                    
+            }
+
+        </style>
+
+    </head>
+    <head>
+        <style>
+            * {
+  background-repeat: no-repeat;
+  background-size: contain;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* 사파리, 크롬 */
+  tap-highlight-color: rgba(0, 0, 0, 0);
+  /* 일반 */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-drag: none;
+}
+
+html {
+  -ms-touch-action: none;
+}
+
+body,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel_contain_li {
+  width: 1314px;
+}
+
+.item {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: 435px;
+  height: 420px;
+  transition: all 350ms cubic-bezier(0.33, 1, 0.68, 1);
+  transform: scale(1) perspective(5000px) rotateY(0deg);
+}
+
+.item.current:hover {
+  transform: translateY(-8px);
+}
+
+.item.min {
+  transform: scale(0.8) perspective(5000px) rotateY(45deg);
+  opacity: 0;
+}
+
+.item.min {
+  transform: scale(0.8) perspective(5000px) rotateY(-45deg);
+  opacity: 0;
+}
+
+.item .bg_contain {
+  position: absolute;
+  width: 435px;
+  height: 420px;
+}
+
+.item .bg_contain .bg {
+  position: absolute;
+  width: 407px;
+  height: 294px;
+  border-radius: 40px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+  margin: 100px 0px 0px 14px;
+  background-image: url("../img/bg_oval.png");
+  overflow: hidden;
+  transition: all 350ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.item.current:hover .bg_contain .bg {
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.item .bg_contain .bg .bg_acc {
+  position: absolute;
+  width: 435px;
+  height: 420px;
+  top: -100px;
+  left: -14px;
+}
+
+.item .txt {
+  position: absolute;
+  width: 435px;
+  height: 420px;
+  transition: all 350ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.item.current:hover .txt {
+  transform: translateY(4px);
+  transition-delay: 000ms;
+}
+
+.item .txt {
+  transition-delay: 300ms;
+}
+
+.item.current .txt {
+  transition-delay: 000ms;
+}
+
+.item.min .txt {
+  transform: translateX(13.3%);
+  opacity: 0;
+}
+
+.item .img_contain {
+  position: absolute;
+  width: 435px;
+  height: 394px;
+  overflow: hidden;
+}
+
+.item .img_contain .img {
+  position: absolute;
+  width: 435px;
+  height: 420px;
+  transition: all 350ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.item.current:hover .img_contain .img {
+  transform: translateY(4px);
+}
+            
+        </style>
+    </head>
+    <script>
+        const flicking = new eg.Flicking(".carousel_contain", {
+  bound: true,
+  duration: 500,
+  autoResize: true,
+  horizontalL: true,
+  circular: false,
+  moveType: "snap",
+  bounce: ["10%", "10%"],
+  gap: 0,
+  useOffset: true,
+  overflow: false,
+});
+
+var $arrow_timer;
+var $itme_hovertimer;
+var activeAnimTime = 500;
+var currentIndex = 0;
+var swipeStart = false;
+
+$carousel_contain = $(".carousel_contain");
+$carousel_contain_li = $(".carousel_contain_li");
+$carousel_item = $(".item");
+$carousel_control = $(".carousel_control");
+
+function FunctionPageItem(pageIndex) {
+  i = 1;
+  delay = 60;
+  for (var i = 0; i < $carousel_contain_li.length; i++) {
+    if (currentIndex > i) {
+      $($($carousel_contain_li[i]).get(0)).removeClass("right");
+      $($($carousel_contain_li[i]).get(0)).addClass("left");
+    } else {
+      $($($carousel_contain_li[i]).get(0)).removeClass("left");
+      $($($carousel_contain_li[i]).get(0)).addClass("right");
+    }
+    if (currentIndex == i) {
+      $($($carousel_contain_li[i]).get(0)).removeClass("left");
+      $($($carousel_contain_li[i]).get(0)).removeClass("right");
+    }
+  }
+
+  clearTimeout($itme_hovertimer);
+
+  for (var i = 0; i < $carousel_item.length; i++) {
+    if (pageIndex == 1) {
+      $($carousel_control[0]).addClass("out");
+      $($carousel_control[1]).removeClass("out");
+      while (i < 3) {
+        (function (i) {
+          var timer = setTimeout(function () {
+            $carousel_item.eq(i).removeClass("min");
+          }, delay * i);
+        })(i++);
+      }
+      itme_hovertimer = setTimeout(function () {
+        for (var i = 0; i < $carousel_item.length; i++) {
+          if (i < 3) {
+            $($($carousel_item[i]).get(0)).addClass("current");
+          }
+        }
+      }, 600);
+      if (i >= 3 && i <= 6) {
+        $($($carousel_item[i]).get(0)).addClass("min");
+        $($($carousel_item[i]).get(0)).removeClass("current");
+      }
+    }
+    if (pageIndex == 2) {
+      $($carousel_control[0]).removeClass("out");
+      $($carousel_control[1]).addClass("out");
+      while (i >= 3 && i < 6) {
+        (function (i) {
+          var timer = setTimeout(function () {
+            $carousel_item.eq(i).removeClass("min");
+          }, delay * (i - 3));
+        })(i++);
+      }
+      itme_hovertimer = setTimeout(function () {
+        for (var i = 0; i < $carousel_item.length; i++) {
+          if (i >= 3 && i < 6) {
+            $($($carousel_item[i]).get(0)).addClass("current");
+          }
+        }
+      }, 600);
+      if (i < 3) {
+        $($($carousel_item[i]).get(0)).addClass("min");
+        $($($carousel_item[i]).get(0)).removeClass("current");
+      }
+    }
+  }
+}
+
+flicking.on("holdStart", () => {
+  flicking.getAllPanels(true).forEach(function (panel) {
+    $carousel_contain.removeClass("click");
+    $carousel_contain.addClass("swipe");
+    swipeStart = true;
+    currPos = $(".eg-flick-camera").offset().left;
+  });
+});
+
+flicking.on("move", (e) => {
+  flicking.getAllPanels().forEach((panel) => {
+    const panelEl = panel.getElement();
+    const progress = panel.getProgress();
+    currPos = $(".eg-flick-camera").offset().left;
+    if (swipeStart) {
+      if (currPos <= 180.5 && currPos >= -1133.5) {
+        for (var i = 0; i < $carousel_contain_li.length; i++) {
+          $($($carousel_contain_li[i]).get(0)).removeClass("left");
+          $($($carousel_contain_li[i]).get(0)).removeClass("right");
+        }
+        for (var i = 0; i < $carousel_item.length; i++) {
+          $($($carousel_item[i]).get(0)).removeClass("min");
+          $($($carousel_item[i]).get(0)).removeClass("current");
+        }
+      }
+    }
+  });
+});
+
+flicking.on("change", function (e) {
+  currentIndex = e.index;
+  switch (currentIndex) {
+    case 0:
+      FunctionPageItem(1);
+      break;
+    case 1:
+      FunctionPageItem(2);
+      break;
+    default:
+  }
+});
+
+flicking.on("holdEnd", () => {
+  flicking.getAllPanels(true).forEach(function (panel) {
+    swipeStart = false;
+    currPos = $(".eg-flick-camera").offset().left;
+    if (currPos <= 180.5 && currPos >= -1133.5) { }
+  });
+});
+
+for (var i = 0; i < $carousel_item.length; i++) {
+  if (i < 3) {
+    $($($carousel_item[i]).get(0)).addClass("current");
+  }
+}
+    </script>
+
+    <body>
+        <h1>TACO GAMES</h1>
+        <img id="img1" src="https://quizbash.com/assets/img/games/logo-half-life.jpg">
+        <br>
+        <div style="position: absolute; width: 1700px; height: 450px; background-color: #5847E4;"></div>
+
+      <ul class="carousel_contain" style="position: absolute; width: 1314px; height: 420px; left: 197px;">
+        
+        <div class="carousel_contain_li">
+        <div class="item current">
+          <div class="bg_contain">
+            <div class="bg" style="background-color: #7068ec;">
+              <img src="img/01_bg_acc.png" class="bg_acc" />
+            </div>
+          </div>
+          <div class="img_contain">
+            <img src="http://thenewcode.com/assets/images/mario.png" class="img" />
+          </div>
+        </div>
+    
+        <div class="item current">
+          <div class="bg_contain">
+            <div class="bg" style="background-color: #4193DC;">
+              <img src="img/02_bg_acc.png" class="bg_acc" />
+            </div>
+          </div>
+          <div class="img_contain">
+            <img src="http://thenewcode.com/assets/images/mario.png" class="img" />
+          </div>
+        </div>
+    
+        <div class="item current">
+          <div class="bg_contain">
+            <div class="bg" style="background-color: #35C3B0;">
+              <img src="img/03_bg_acc.png" class="bg_acc" />
+            </div>
+          </div>
+          <div class="img_contain">
+            <img src="http://thenewcode.com/assets/images/mario.png" class="img" />
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel_contain_li">
+        <div class="item min">
+          <div class="bg_contain">
+            <div class="bg" style="background-color: #A99265;">
+              <img src="img/04_bg_acc.png" class="bg_acc" />
+            </div>
+          </div>
+          <div class="img_contain">
+            <img src="http://thenewcode.com/assets/images/mario.png" class="img" />
+          </div>
+        </div>
+    
+        <div class="item min">
+          <div class="bg_contain">
+            <div class="bg" style="background-color: #73859A;">
+              <img src="img/05_bg_acc.png" class="bg_acc" />
+            </div>
+          </div>
+          <div class="img_contain">
+            <img src="http://thenewcode.com/assets/images/mario.png" class="img" />
+          </div>
+        </div>
+    
+        <div class="item min">
+          <div class="bg_contain">
+            <div class="bg" style="background-color: #DB786D;">
+              <img src="img/06_bg_acc.png" class="bg_acc" />
+            </div>
+          </div>
+          <div class="img_contain">
+            <img src="http://thenewcode.com/assets/images/mario.png" class="img" />
+          </div>
+        </div>
+      </div>
+
+    </ul>
+    </div>
+    
+    </body>
+</html>

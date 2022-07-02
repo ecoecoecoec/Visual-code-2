@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <style>
+           html{
+               background-image: url(https://images.wallpapersden.com/image/download/light-green-solid-color_bGZulJmamq2lpKSUZ2prZa1ma2Vl.jpg);
+           }
+           #back{
+               background-color: white;
+               font-family:sans-serif;
+               text-align: center;
+           }
+           #sub{
+                 text-decoration: none;
+                 font-family: Sans-serif;
+                 
+           }
+           #al{
+               margin-left: 340px;
+               width: 200px;
+               font-size: 30px;
+           }
+        </style>
+    </head>
+    <body>
+        <h1 id="back">LOGIN FORM</h1>
+        <div id="al">
+        
+        <form onsubmit="matchpassowrd()"> 
+            
+            <strong> 
+                <strong>NAME</strong><input type="text"required><br><br><br>
+            <strong>LAST-NAME</strong><input type="text"required><br><br><br>
+            <strong>EMAIL</strong><input type="email"required><br><br><br>
+            <strong>USER-ID</strong><input type="text"required><br><br><br>
+            <strong>PASSOWRD</strong><input type="password" id="psd1" name="psd1"><br><br><br>
+            <strong>PASSOWRD-CONFIRM</strong><input type="password" id="psd2" name="psd2"><br><br><br>
+            <input id="sub" type="submit">
+
+            </strong>
+
+        </form>
+
+        </div>
+
+        <script>
+            function matchpassowrd(){
+                var psd1=document.getElementById("psd1").value
+                var psd2=document.getElementById("psd2").value
+                if(psd1==psd2){
+                    alert("passoword match")
+                }
+                else{
+                    alert("passowrd does not match")
+                }
+            }
+        </script>
+    </body>
+</html>
